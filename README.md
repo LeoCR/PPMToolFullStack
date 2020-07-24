@@ -1,2 +1,2 @@
-# PPMToolFullStack
-Spring+React+Redux
+# Personal Project Managament Tool 
+Spring+React+Redux+MySQL+JPA
