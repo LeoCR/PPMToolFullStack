@@ -5,6 +5,14 @@ import org.springframework.stereotype.Repository;
 
 import io.laranibar.ppmtool.domain.Project;
 
+
+/**
+ * Act as a database repository.
+ * Indicate that the class provides
+ *  the mechanism for storage, retrieval, search, update and delete operation on objects.
+ * @author leo
+ *
+ */
 @Repository
 public interface ProjectRepository extends CrudRepository<Project, Long>{
   

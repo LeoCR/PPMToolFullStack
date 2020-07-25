@@ -7,6 +7,11 @@ import io.laranibar.ppmtool.domain.Project;
 import io.laranibar.ppmtool.repositories.ProjectRepository;
 
 @Service
+/**
+ * Holding the business logic
+ * @author leo
+ *
+ */
 public class ProjectService {
 
 	@Autowired
