@@ -1,4 +1,7 @@
 import React,{Component} from "react";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {createProject} from "../../actions/projectActions";
 
 class AddProject extends Component{
     constructor(){
@@ -8,7 +11,8 @@ class AddProject extends Component{
             projectIdentifier: "",
             description: "",
             start_date: "",
-            end_date: "" 
+            end_date: "",
+            errors: {}
         }
     }
     onChange=(e)=>{
@@ -16,7 +20,7 @@ class AddProject extends Component{
             [e.target.name]:e.target.value
         })
     }
-    onSubmit=(e)=>{
+    onSubmit=async(e)=>{
         e.preventDefault();
         const newProject={
             projectName: this.state.projectName,
@@ -26,8 +30,16 @@ class AddProject extends Component{
             end_date: this.state.end_date
         }
         console.log(newProject);
-    }
+        await this.props.createProject(newProject, this.props.history); 
+    }  
+     static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.errors) {
+            return ({ errors: nextProps.errors  }) // <- this is setState equivalent
+        }
+        return null
+    } 
     render(){
+        const { errors } = this.state;
         return(
             <React.Fragment>
                 <div className="project">
@@ -39,12 +51,15 @@ class AddProject extends Component{
                                 <form onSubmit={this.onSubmit}>
                                     <div className="form-group">
                                         <input type="text" className="form-control form-control-lg " placeholder="Project Name" name="projectName" value={this.state.projectName} onChange={(e)=>this.onChange(e)}/>
+                                        {(errors.projectName!=='')?<p style={{color:'darkred',fontSize:'12px'}}>{errors.projectName}</p>:''}
                                     </div>
                                     <div className="form-group">
                                         <input type="text" className="form-control form-control-lg" placeholder="Unique Project ID" name="projectIdentifier"  value={this.state.projectIdentifier}  onChange={(e)=>this.onChange(e)}/>
+                                        {(errors.projectIdentifier!=='')?<p style={{color:'darkred',fontSize:'12px'}}>{errors.projectIdentifier}</p>:''}
                                     </div>
                                     <div className="form-group">
                                         <textarea className="form-control form-control-lg" placeholder="Project Description" name="description" value={this.state.description}  onChange={(e)=>this.onChange(e)}></textarea>
+                                        {(errors.description!=='')?<p style={{color:'darkred',fontSize:'12px'}}>{errors.description}</p>:''}
                                     </div>
                                     <h6>Start Date</h6>
                                     <div className="form-group">
@@ -64,4 +79,12 @@ class AddProject extends Component{
         )
     }
 }
-export default AddProject;
+AddProject.propTypes={
+    createProject:PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
+}
+const mapStateToProps=state=>({
+    errors:state.errors,
+    projects:state.projects
+})
+export default connect(mapStateToProps,{createProject}) (AddProject)

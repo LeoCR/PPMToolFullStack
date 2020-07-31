@@ -2564,7 +2564,7 @@ browserify-sign@^4.0.0:
     browserify-rsa "^4.0.0"
     create-hash "^1.1.0"
     create-hmac "^1.1.2"
-    elliptic "^6.0.0"
+    elliptic "^6.5.3"
     inherits "^2.0.1"
     parse-asn1 "^5.0.0"
 
@@ -3206,7 +3206,7 @@ create-ecdh@^4.0.0:
   integrity sha512-GbEHQPMOswGpKXM9kCWVrremUcBmjteUaQ01T9rkKCPDXfUHX0IoP9LpHYo2NPFampa4e+/pFDc3jQdxrxQLaw==
   dependencies:
     bn.js "^4.1.0"
-    elliptic "^6.0.0"
+    elliptic "^6.5.3"
 
 create-hash@^1.1.0, create-hash@^1.1.2:
   version "1.2.0"
@@ -10516,7 +10516,7 @@ websocket-driver@>=0.5.1:
   dependencies:
     http-parser-js ">=0.4.0 <0.4.11"
     safe-buffer ">=5.1.0"
-    websocket-extensions ">=0.1.1"
+    websocket-extensions ">=0.1.4"
 
 websocket-extensions@>=0.1.1:
   version "0.1.3"
