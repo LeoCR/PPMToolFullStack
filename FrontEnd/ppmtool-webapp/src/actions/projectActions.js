@@ -1,6 +1,6 @@
 import api from '../api/api';
 import {GET_ERRORS} from "../constants/errorTypes";
-import {ADD_PROJECT,GET_PROJECTS} from "../constants/projectTypes";
+import {ADD_PROJECT,GET_PROJECTS,GET_PROJECT,UPDATE_PROJECT} from "../constants/projectTypes";
 
 export const getProjects=()=>async dispatch=>{
     return await api.get("/api/project/getAll")
@@ -19,7 +19,51 @@ export const getProjects=()=>async dispatch=>{
         });
     }) 
 }
-
+export const getProject=(id,history)=>async dispatch=>{
+    return await api.get("/api/project/getByIdentifier/"+id)
+    .then((res)=>{
+        console.log(res);
+        dispatch({
+            type:GET_PROJECT,
+            payload:res.data
+        }) 
+    }).catch((err)=>{
+        console.log("An error occurs inside projectActions.getProject().api.get.catch(err)");
+        console.log(err); 
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        });
+        history.push("/dashboard")
+    }) 
+}
+export const updateProject=(project,history)=>async dispatch=>{
+    return await api.put("/api/project/update",project,{
+        headers: { 
+            'Accept': '*/*',
+            'Content-Type': 'application/json' 
+        }
+    })
+    .then((res)=>{
+        console.log(res);
+        dispatch({
+            type:UPDATE_PROJECT,
+            payload:res.data
+        });
+        dispatch({
+            type: GET_ERRORS,
+            payload:{}
+        });;
+        history.push("/dashboard");
+    }).catch((err)=>{
+        console.log("An error occurs inside projectActions.updateProject().api.put.catch(err)");
+        console.log(err); 
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        });
+    }) 
+}
 export const createProject=(project,history)=>async dispatch=>{
     return await api.post("/api/project/create",project,{
         headers: { 
