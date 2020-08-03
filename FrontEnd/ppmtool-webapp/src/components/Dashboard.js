@@ -7,10 +7,9 @@ import {getProjects} from "../actions/projectActions";
 
 export class Dashboard extends Component {
 
-    componentDidMount=async()=>{
-        await this.props.getProjects();
+    componentDidMount(){
+        this.props.getProjects();
     }
-
     render() {
         return (
             <div className="projects">
@@ -26,7 +25,7 @@ export class Dashboard extends Component {
                         <div className="container">
                             {(this.props.projects.projects!=='')?this.props.projects.projects.map((project)=>{
                                 return(
-                                    <ProjectItem  key={project.id} project={project}/>
+                                    <ProjectItem  key={project.projectIdentifier} project={project}/>
                                 )
                             }):''}
                         </div> 

@@ -1,4 +1,4 @@
-import {ADD_PROJECT,GET_PROJECTS,GET_PROJECT} from "../constants/projectTypes";
+import {ADD_PROJECT,GET_PROJECTS,GET_PROJECT, DELETE_PROJECT} from "../constants/projectTypes";
 
 const initialState={
     projects:[],
@@ -20,6 +20,12 @@ export default function(state=initialState,action){
             return {
                 ...state,
                 project:action.payload
+            }
+        case DELETE_PROJECT:
+            return{
+                ...state,
+                projects:state.projects.filter(project=>project.projectIdentifier!==action.payload)
+                
             }
         default:
             return state; 

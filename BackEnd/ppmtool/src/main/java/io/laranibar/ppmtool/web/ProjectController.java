@@ -52,8 +52,12 @@ public class ProjectController {
 	}
 	@DeleteMapping("/delete/{projectId}")
 	public ResponseEntity<?> deleteProject(@PathVariable String projectId){
-		projectService.deleteProjectByIdentifier(projectId);
-		return new ResponseEntity<String>("Project with ID:"+projectId+" was deleted succesfully.",HttpStatus.OK);
+		try {
+			projectService.deleteProjectByIdentifier(projectId);
+			return new ResponseEntity<String>("Project with ID:"+projectId+" was deleted succesfully.",HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("An error occurs: deleting:"+projectId+". Error Message: "+e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
 	}
 	@PutMapping("/update")
 	public ResponseEntity<?> updateProject(@Valid @RequestBody Project project,BindingResult result){

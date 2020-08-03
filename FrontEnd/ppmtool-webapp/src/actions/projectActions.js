@@ -1,6 +1,6 @@
 import api from '../api/api';
 import {GET_ERRORS} from "../constants/errorTypes";
-import {ADD_PROJECT,GET_PROJECTS,GET_PROJECT,UPDATE_PROJECT} from "../constants/projectTypes";
+import {ADD_PROJECT,GET_PROJECTS,GET_PROJECT,UPDATE_PROJECT, DELETE_PROJECT} from "../constants/projectTypes";
 
 export const getProjects=()=>async dispatch=>{
     return await api.get("/api/project/getAll")
@@ -86,4 +86,21 @@ export const createProject=(project,history)=>async dispatch=>{
             payload: err.response.data
         });
     }) 
+}
+export const deleteProject=id=> async dispatch=>{
+    if(window.confirm("Are you sure you want to delete this Project?")){
+        await api.delete('/api/project/delete/'+id)
+        .catch((err)=>{
+            console.log("An error occurs inside projectActions.deleteProject(id).api.delete.catch(err)");
+            console.log(err); 
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            });
+        }); 
+        dispatch({
+            type:DELETE_PROJECT,
+            payload:id
+        }) 
+    }
 }
