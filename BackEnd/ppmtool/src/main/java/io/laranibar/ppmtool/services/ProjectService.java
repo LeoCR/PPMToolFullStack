@@ -3,8 +3,10 @@ package io.laranibar.ppmtool.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.laranibar.ppmtool.domain.Backlog;
 import io.laranibar.ppmtool.domain.Project;
 import io.laranibar.ppmtool.exceptions.ProjectIdException;
+import io.laranibar.ppmtool.repositories.BacklogRepository;
 import io.laranibar.ppmtool.repositories.ProjectRepository;
 
 @Service
@@ -17,10 +19,23 @@ public class ProjectService {
 
 	@Autowired
 	private ProjectRepository projectRepository;
+	@Autowired
+	private BacklogRepository backlogRepository;
 	
 	public Project saveOrUpdateProject(Project project) {
 		try {
-			project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+			String projectIdentifier=project.getProjectIdentifier().toUpperCase();
+			project.setProjectIdentifier(projectIdentifier);
+			
+			if(project.getId()==null) {
+				Backlog backlog = new Backlog();
+				project.setBacklog(backlog);
+				backlog.setProject(project);
+				backlog.setProjectIdentifier(projectIdentifier);
+			}
+			if(project.getId()!=null) {
+				project.setBacklog(backlogRepository.findByProjectIdentifier(projectIdentifier));
+			}
 			return projectRepository.save(project);	
 		} catch (Exception e) { 
 			throw new ProjectIdException("Project ID: "+project.getProjectIdentifier().toUpperCase()+" already exists.");
