@@ -2,7 +2,7 @@ package io.laranibar.ppmtool.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
 import io.laranibar.ppmtool.domain.Backlog;
 import io.laranibar.ppmtool.domain.Project;
 import io.laranibar.ppmtool.domain.ProjectTask;
@@ -59,7 +59,7 @@ public class ProjectTaskService {
 			/**
 			* Initial priority when priority is null
 			*/
-			if(projectTask.getPriority()==null) {
+			if(projectTask.getPriority()==0 ||projectTask.getPriority()==null) {
 				projectTask.setPriority(3);
 			}
 			return projectTaskRepository.save(projectTask);
@@ -109,5 +109,17 @@ public class ProjectTaskService {
 		
 		return projectTaskRepository.save(projectTask);
 		
+	}
+	public void deletePTByProjectSequence(String backlog_id,String pt_id) {
+		ProjectTask projectTask=this.findPTByProjectSequence(backlog_id,pt_id);		
+		
+		/*
+		Backlog backlog=projectTask.getBacklog();
+		List<ProjectTask> pts=projectTask.getBacklog().getProjectTasks();
+		pts.remove(projectTask);
+		backlogRepository.save(backlog);
+		*/
+		
+		projectTaskRepository.delete(projectTask);
 	}
 }

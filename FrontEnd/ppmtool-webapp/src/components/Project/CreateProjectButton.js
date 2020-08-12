@@ -1,13 +1,17 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-
-export const CreateProjectButton=()=>{
+import {connect} from "react-redux";
+import {clearErrors} from "../../actions/errorsActions";
+export const CreateProjectButton=(props)=>{
     return(
         <React.Fragment>
-            <Link to="/add-project" className="btn btn-lg btn-info">
+            <Link to="/addProject" className="btn btn-lg btn-info" onClick={()=>props.clearErrors()}>
                 Create a Project
             </Link>
         </React.Fragment>
     )
 }
-export default CreateProjectButton;
+const mapStateToProps=(state)=>({
+    errors:state.errors
+})
+export default connect(mapStateToProps,{clearErrors})(CreateProjectButton);
