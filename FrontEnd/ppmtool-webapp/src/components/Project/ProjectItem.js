@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {deleteProject} from "../../actions/projectActions";
-
+import {clearErrors} from "../../actions/errorsActions";
 export class ProjectItem extends Component {
 
     onDelete=(e,id)=>{
@@ -26,7 +26,7 @@ export class ProjectItem extends Component {
                 </div>
                 <div className="col-md-4 d-none d-lg-block">
                     <div className="list-group">
-                        <Link to={`/projectBoard/${project.projectIdentifier}`}>
+                        <Link to={`/projectBoard/${project.projectIdentifier}`} onClick={()=>this.props.clearErrors()}>
                             <li className="list-group-item board">
                                 <i className="fa fa-flag-checkered pr-1"> Project Board </i>
                             </li>
@@ -47,6 +47,7 @@ export class ProjectItem extends Component {
     }
 }
 ProjectItem.propTypes={
-    deleteProject:PropTypes.func.isRequired
+    deleteProject:PropTypes.func.isRequired,
+    clearErrors:PropTypes.func.isRequired
 }
-export default connect(null,{deleteProject})(ProjectItem)
+export default connect(null,{deleteProject,clearErrors})(ProjectItem)
