@@ -10,6 +10,7 @@ import {BrowserRouter as Router,Route,Switch } from "react-router-dom"
 import { Provider } from "react-redux";
 import store from "./store";
 import AddProjectTask from './components/ProjectBoard/ProjectTasks/AddProjectTask';
+import UpdateProjectTask from './components/ProjectBoard/ProjectTasks/UpdateProjectTask';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/updateProject/:id" exact component={UpdateProject} />
             <Route path="/projectBoard/:id" exact component={ProjectBoard}/>
             <Route path="/addProjectTask/:id" component={AddProjectTask}/>
+            <Route path="/updateProjectTask/:backlog_id/:pt_id" component={UpdateProjectTask}/>
         </Switch> 
       </Router>
     </Provider>

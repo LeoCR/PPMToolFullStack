@@ -24,6 +24,12 @@ export class UpdateProject extends Component {
     componentDidMount(){
         const {id}= this.props.match.params; 
         this.props.getProject(id,this.props.history)
+        setTimeout(() => {
+          const {id, projectName, projectIdentifier, description, start_date, end_date}=this.props.projects.project;
+          this.setState({
+              id, projectName, projectIdentifier, description, start_date, end_date
+          }) 
+        }, 400);
     }
 
     onUpdateProject=async(e)=>{
@@ -41,16 +47,11 @@ export class UpdateProject extends Component {
         await this.props.updateProject(editedProject, this.props.history);
     } 
     
-    componentWillReceiveProps(nextProps){
-        const {id, projectName, projectIdentifier, description, start_date, end_date}=nextProps.projects.project;
-        if (nextProps.errors) {
-            this.setState({ errors: nextProps.errors  }) 
-        }
-        this.setState({
-            id, projectName, projectIdentifier, description, start_date, end_date
-        }) 
+  static getDerivedStateFromProps(nextProps){ 
+    if (nextProps.errors) {
+      return({ errors: nextProps.errors  }) 
     }
-    
+  }
   render() {
     const {projectName,projectIdentifier,description,start_date,end_date,errors}=this.state;
     return (

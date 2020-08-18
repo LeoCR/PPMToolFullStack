@@ -85,7 +85,10 @@ export const createProject=(project,history)=>async dispatch=>{
             dispatch({
                 type:ADD_PROJECT,
                 payload:res.data
-            })
+            });
+            dispatch({
+                type: CLEAR_ERRORS
+            });
             history.push("/dashboard");
         }
     }).catch((err)=>{

@@ -22,9 +22,9 @@ class ProjectBoard extends React.PureComponent {
             })
         }
     }
-    componentDidMount(){
+    componentDidMount=async()=>{
         const {id} = this.props.match.params;
-        this.props.getBacklog(id);
+        await this.props.getBacklog(id);
     }
     render() {
         const {id}=this.props.match.params;
