@@ -75,6 +75,7 @@ export const getProjectTask=(backlog_id,pt_id,history)=>async dispatch=>{
                 type: GET_ERRORS,
                 payload: err.response.data
             });
+            history.push("/dashboard");
         })
     } catch (error) {
         console.log("An error occurs inside backlogActions.getProjectTask().catch(err)");
@@ -83,6 +84,7 @@ export const getProjectTask=(backlog_id,pt_id,history)=>async dispatch=>{
             type: GET_ERRORS,
             payload: error.response.data
         });
+        history.push("/dashboard");
     }
 }
 export const updateProjectTask=(backlog_id,pt_id,project_task,history)=>async dispatch=>{
@@ -113,3 +115,28 @@ export const updateProjectTask=(backlog_id,pt_id,project_task,history)=>async di
         });
     }
 }
+export const deleteProjectTask = (backlog_id, pt_id) => async dispatch => {
+    if (
+      window.confirm(
+        `You are deleting project task ${pt_id}, this action cannot be undone`
+      )
+    ) {
+      await api.delete(`/api/backlog/deleteProjectTask/${backlog_id}/${pt_id}`)
+      .then((res)=>{
+          if(res){
+            dispatch({
+                type: DELETE_PROJECT_TASK,
+                payload: pt_id
+            });
+          }
+      })
+      .catch((err)=>{
+        console.log("An error occurs inside backlogActions.deleteProjectTask().try.api.get.catch(err)");
+        console.log(err); 
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        });
+    })
+    }
+};
