@@ -131,7 +131,7 @@ export const deleteProjectTask = (backlog_id, pt_id) => async dispatch => {
           }
       })
       .catch((err)=>{
-        console.log("An error occurs inside backlogActions.deleteProjectTask().try.api.get.catch(err)");
+        console.log("An error occurs inside backlogActions.deleteProjectTask().try.api.delete.catch(err)");
         console.log(err); 
         dispatch({
             type: GET_ERRORS,
