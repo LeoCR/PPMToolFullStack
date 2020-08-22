@@ -39,7 +39,7 @@ public class ProjectTask {
 	@Column(updatable=false)
 	private String projectIdentifier;
 	private Date created_At;
-	private Date update_At;
+	private Date updated_At;
 	
 	public ProjectTask() { 
 	}
@@ -117,11 +117,11 @@ public class ProjectTask {
 	}
 
 	public Date getUpdate_At() {
-		return update_At;
+		return updated_At;
 	}
 
 	public void setUpdate_At(Date update_At) {
-		this.update_At = update_At;
+		this.updated_At = update_At;
 	}
 	
 	public Backlog getBacklog() {
@@ -138,7 +138,7 @@ public class ProjectTask {
 	}
 	@PreUpdate
 	protected void onUpdate() {
-		this.update_At=new Date();
+		this.updated_At=new Date();
 	}
 
 	@Override
@@ -146,7 +146,7 @@ public class ProjectTask {
 		return "ProjectTask:{id:" + id + ", projectSequence:" + projectSequence + ", summary:" + summary
 				+ ", acceptanceCriteria:" + acceptanceCriteria + ", status:" + status + ", priority:" + priority
 				+ ", backlog:"+backlog+", dueDate:" + dueDate + ", projectIdentifier:" + projectIdentifier + ", created_At:" + created_At
-				+ ", update_At:" + update_At + "}";
+				+ ", update_At:" + updated_At + "}";
 	}
 	
 }
