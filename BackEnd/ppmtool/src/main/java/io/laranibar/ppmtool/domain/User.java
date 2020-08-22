@@ -1,5 +1,6 @@
 package io.laranibar.ppmtool.domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,8 +14,13 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-public class User {
+public class User implements UserDetails{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -75,9 +81,6 @@ public class User {
 	public void setUpdated_At(Date updated_At) {
 		this.updated_At = updated_At;
 	}
-
-
-
 	@PrePersist
 	protected void onCreate() {
 		this.created_At=new Date();
@@ -85,5 +88,33 @@ public class User {
 	@PreUpdate
 	protected void onUpdate() {
 		this.updated_At=new Date();
+	}
+	/**
+	 * UserDetails interface methods
+	 */
+	@Override
+	@JsonIgnore
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
+	@Override
+	@JsonIgnore
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+	@Override
+	@JsonIgnore
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+	@Override
+	@JsonIgnore
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+	@Override
+	@JsonIgnore
+	public boolean isEnabled() {
+		return true;
 	}
 }
