@@ -70,7 +70,7 @@ public class BacklogController {
     	projectTaskService.deletePTByProjectSequence(backlog_id, pt_id);
 		
     	
-		return new ResponseEntity<String>("Project Task "+backlog_id+" was deleted successfully",HttpStatus.OK);
+		return new ResponseEntity<String>("Project Task "+pt_id+" was deleted successfully",HttpStatus.OK);
 		
 	}
 }
