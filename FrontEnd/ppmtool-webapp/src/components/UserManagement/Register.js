@@ -44,6 +44,9 @@ class Register extends React.Component {
     } 
     componentDidMount(){
         this.props.clearErrors();
+        if(this.props.security.validToken){
+            this.props.history.push("/dashboard")
+        }
     }
     render() {
         const { errors } = this.state;
@@ -132,8 +135,10 @@ Register.propTypes={
     clearErrors:PropTypes.func.isRequired,
     createNewUser:PropTypes.func.isRequired,
     errors:PropTypes.object.isRequired,
+    security:PropTypes.object.isRequired
 }
 const mapStateToProps=state=>({
-    errors:state.errors
+    errors:state.errors,
+    security:state.security
 })
 export default connect(mapStateToProps,{createNewUser,clearErrors})(Register)

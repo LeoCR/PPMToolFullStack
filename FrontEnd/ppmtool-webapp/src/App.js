@@ -18,7 +18,7 @@ import jwt_decode from "jwt-decode";
 import {setJWTToken} from "./securityUtils/setJWTToken";
 import { SET_CURRENT_USER } from './constants/securityTypes';
 import {logout} from "./actions/securityActions";
-
+import SecuredRoute from "./securityUtils/SecuredRoute";
 const jwtToken=localStorage.getItem('jwtToken');
 
 if(jwtToken){
@@ -55,12 +55,12 @@ class App extends React.Component {
                 //private Routes
               }
               
-              <Route path="/dashboard" exact component={Dashboard}/>
-              <Route path="/addProject" exact component={AddProject}/>
-              <Route path="/updateProject/:id" exact component={UpdateProject} />
-              <Route path="/projectBoard/:id" exact component={ProjectBoard}/>
-              <Route path="/addProjectTask/:id" component={AddProjectTask}/>
-              <Route path="/updateProjectTask/:backlog_id/:pt_id" component={UpdateProjectTask}/>
+              <SecuredRoute path="/dashboard" exact component={Dashboard}/>
+              <SecuredRoute path="/addProject" exact component={AddProject}/>
+              <SecuredRoute path="/updateProject/:id" exact component={UpdateProject} />
+              <SecuredRoute path="/projectBoard/:id" exact component={ProjectBoard}/>
+              <SecuredRoute path="/addProjectTask/:id" component={AddProjectTask}/>
+              <SecuredRoute path="/updateProjectTask/:backlog_id/:pt_id" component={UpdateProjectTask}/>
           </Switch> 
         </Router>
       </Provider>

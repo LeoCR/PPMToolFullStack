@@ -25,6 +25,9 @@ class Login extends React.Component {
     }
     componentDidMount(){
         this.props.clearErrors();
+        if(this.props.security.validToken){
+            this.props.history.push("/dashboard")
+        }
     }
     onChange=(e)=>{
         if(e){
