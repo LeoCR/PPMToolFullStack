@@ -2,6 +2,7 @@ import React from 'react';
 import {createNewUser} from "../../actions/securityActions";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+import { clearErrors } from "../../actions/errorsActions";
 
 class Register extends React.Component {
 
@@ -41,6 +42,9 @@ class Register extends React.Component {
         }
         return null;
     } 
+    componentDidMount(){
+        this.props.clearErrors();
+    }
     render() {
         const { errors } = this.state;
         return (
@@ -125,10 +129,11 @@ class Register extends React.Component {
     }
 }
 Register.propTypes={
+    clearErrors:PropTypes.func.isRequired,
     createNewUser:PropTypes.func.isRequired,
     errors:PropTypes.object.isRequired,
 }
 const mapStateToProps=state=>({
     errors:state.errors
 })
-export default connect(mapStateToProps,{createNewUser})(Register)
+export default connect(mapStateToProps,{createNewUser,clearErrors})(Register)
