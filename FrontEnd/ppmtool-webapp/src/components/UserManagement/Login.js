@@ -25,6 +25,11 @@ class Login extends React.Component {
     }
     componentDidMount(){
         this.props.clearErrors();
+        this.setState({
+            username:
+                "userinvited@gmail.com",
+            password:"password1234"
+        });        
         if(this.props.security.validToken){
             this.props.history.push("/dashboard")
         }
