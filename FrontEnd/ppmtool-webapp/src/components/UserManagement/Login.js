@@ -8,8 +8,8 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
-            password: "",
+            username: "userinvited@gmail.com",
+            password: "password1234",
             errors: {}
         };
     }
@@ -24,12 +24,7 @@ class Login extends React.Component {
         this.props.login(LoginRequest);
     }
     componentDidMount(){
-        this.props.clearErrors();
-        this.setState({
-            username:
-                "userinvited@gmail.com",
-            password:"password1234"
-        });        
+        this.props.clearErrors();        
         if(this.props.security.validToken){
             this.props.history.push("/dashboard")
         }
